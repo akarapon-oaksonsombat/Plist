@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'globals.dart' as globals;
-import 'globals.dart';
 
 class Edit extends StatefulWidget {
   @override

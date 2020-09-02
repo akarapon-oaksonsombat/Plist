@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterexam/components/detail.dart';
-import 'add.dart';
 import 'globals.dart' as globals;
+import 'tile_builder.dart';
+import 'add.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -12,67 +11,43 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  _build() {
-    int i = 0;
-    List<ListTile> list = List();
-    while (i < globals.get_index()) {
-      Tile(i);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    globals.init();
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'My List',
-        ),
+      backgroundColor: Colors.white,
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              expandedHeight: 120.0,
+              floating: false,
+              pinned: false,
+              backgroundColor: Colors.white,
+              flexibleSpace: FlexibleSpaceBar(
+                titlePadding: EdgeInsets.fromLTRB(32, 0, 0, 0),
+                title: Text("My List", style: globals.headText[globals.theme]),
+              ),
+            ),
+          ];
+        },
+        body: ListView.builder(
+            itemCount: globals.getLength() - 7,
+            itemBuilder: (BuildContext context, int index) {
+              return tileBuilder(index, context);
+            }),
       ),
-      body: ListView.builder(
-          itemCount: globals.get_index(),
-          itemBuilder: (BuildContext context, int index) {
-            return new Tile(index);
-          }),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromRGBO(131, 136, 156, 1),
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => Add()),
           );
         },
-        tooltip: 'Increment',
+        // elevation: 0.0,
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ), //
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
-  }
-}
-
-class Tile extends StatelessWidget {
-  Tile(this.index);
-  final int index;
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        globals.get_name(index),
-        style: TextStyle(fontSize: 18),
-      ),
-      trailing: Text(
-        globals.get_point(index),
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      ),
-      contentPadding: EdgeInsets.fromLTRB(16, 8, 16, 8),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Detail(
-                    index: this.index,
-                  )),
-        );
-      },
-    );
-    ;
   }
 }

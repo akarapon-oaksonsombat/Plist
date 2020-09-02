@@ -40,12 +40,12 @@ class _DetailState extends State<Detail> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      globals.get_point(index),
+                      globals.getPoint(index),
                       style:
                           TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      globals.get_name(index),
+                      globals.getName(index),
                       style:
                           TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
                     ),
