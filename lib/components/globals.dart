@@ -62,15 +62,25 @@ List<String> _name = [
 ];
 
 List<TextStyle> headText = [
-  TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
   TextStyle(
-      fontSize: 34,
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+      color: Color.fromRGBO(49, 53, 61, 1)),
+  TextStyle(
+      fontSize: 24,
       fontWeight: FontWeight.bold,
       color: Color.fromRGBO(242, 242, 247, 1)),
 ];
+List<Color> headColor = [
+  Color.fromRGBO(0, 0, 0, 1),
+  Color.fromRGBO(242, 242, 247, 1),
+];
 List<TextStyle> titleText = [
   TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black),
-  TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.black),
+  TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.bold,
+      color: Color.fromRGBO(251, 251, 252, 1)),
 ];
 List<TextStyle> subtitleText = [
   TextStyle(
@@ -83,18 +93,27 @@ List<TextStyle> subtitleText = [
       color: Color.fromRGBO(131, 136, 156, 1)),
 ];
 List<Color> backgroundColor = [
-  Colors.white,
-  Colors.black,
+  Color.fromRGBO(253, 253, 253, 1),
+  Color.fromRGBO(46, 46, 65, 1),
 ];
 List<Color> tileColor = [
-  Color.fromRGBO(243, 243, 243, 1),
-  Color.fromRGBO(242, 242, 242, 1),
+  Colors.white,
+  Color.fromRGBO(68, 72, 92, 1),
 ];
 List<Color> boxTileColor = [Colors.white, Colors.white];
 List<Color> iconColor = [
-  Colors.black,
-  Colors.black,
+  Color.fromRGBO(149, 149, 149, 1),
+  Color.fromRGBO(251, 251, 252, 1),
 ];
+List<Color> accentColor = [
+  Color.fromRGBO(0, 99, 255, 1),
+  Color.fromRGBO(0, 99, 255, 1),
+];
+List<Color> unactiveColor = [
+  Color.fromRGBO(230, 230, 230, 1),
+  Color.fromRGBO(68, 72, 92, 1),
+];
+Color shadowColor = Color.fromRGBO(0, 0, 0, 1).withOpacity(0.1);
 
 getPoint(int inDex) {
   print('get point ${_point[inDex]}');

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'globals.dart' as globals;
+import 'sliver_components.dart';
 import 'tile_builder.dart';
 import 'add.dart';
+import 'package:animations/animations.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -14,15 +16,28 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: globals.backgroundColor[globals.theme],
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              expandedHeight: 120.0,
-              floating: false,
-              pinned: false,
-              backgroundColor: Colors.white,
+              expandedHeight: 100.0,
+              // floating: true,
+              // pinned: true,
+              iconTheme: IconThemeData(color: globals.headColor[globals.theme]),
+              actions: [
+                IconButton(
+                    icon: Icon(Icons.brightness_2),
+                    onPressed: () {
+                      setState(() {
+                        if (globals.theme == 1)
+                          globals.theme = 0;
+                        else
+                          globals.theme = 1;
+                      });
+                    })
+              ],
+              backgroundColor: globals.backgroundColor[globals.theme],
               flexibleSpace: FlexibleSpaceBar(
                 titlePadding: EdgeInsets.fromLTRB(32, 0, 0, 0),
                 title: Text("My List", style: globals.headText[globals.theme]),
@@ -36,8 +51,9 @@ class _HomePageState extends State<HomePage> {
               return tileBuilder(index, context);
             }),
       ),
+
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromRGBO(131, 136, 156, 1),
+        backgroundColor: globals.accentColor[globals.theme],
         onPressed: () {
           Navigator.push(
             context,
@@ -45,8 +61,12 @@ class _HomePageState extends State<HomePage> {
           );
         },
         // elevation: 0.0,
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ), //
+
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
