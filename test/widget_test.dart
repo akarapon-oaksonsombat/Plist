@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutterexam/components/app.dart';
+import 'file:///C:/Users/akara/Documents/GitHub/Plist/lib/app.dart';
 
 import 'package:flutterexam/main.dart';
 
