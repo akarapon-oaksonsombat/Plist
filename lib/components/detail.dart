@@ -1,6 +1,13 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'edit.dart';
-import 'globals.dart' as globals;
+import 'package:flutter/rendering.dart';
+import 'builder/next_tile_builder.dart';
+import 'builder/top_three_check.dart';
+import 'edit_name.dart';
+import 'edit_point.dart';
+import 'home.dart';
+import 'objects/globals.dart' as globals;
+import 'package:google_fonts/google_fonts.dart';
 
 class Detail extends StatefulWidget {
   Detail({Key key, this.index}) : super(key: key);
@@ -15,120 +22,139 @@ class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: globals.backgroundColor[globals.theme],
+        backgroundColor: globals.theme.getBackgroundColor(),
         appBar: AppBar(
-          iconTheme: IconThemeData(color: globals.headColor[globals.theme]),
-          backgroundColor: globals.backgroundColor[globals.theme],
+          iconTheme: IconThemeData(color: globals.theme.getPrimaryColor()),
+          backgroundColor: globals.theme.getBackgroundColor(),
           elevation: 0.0,
+          centerTitle: true,
           title: Text(
-            'Detail',
-            style: TextStyle(color: globals.headColor[globals.theme]),
+            globals.getName(index),
+            style: GoogleFonts.poppins(textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getPrimaryColor())),
+          ),
+          leading: IconButton(
+            icon: Icon(EvaIcons.arrowCircleLeft),
+            onPressed: (){
+              Navigator.pop(context);
+            },
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.edit),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Edit()),
+              icon: Icon(EvaIcons.personDelete),
+              onPressed: (){
+                globals.delete(index);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                    ModalRoute.withName('')
                 );
               },
-            )
+            ),
           ],
-          //elevation: 0.0,
         ),
-        body: Column(
+        body: ListView(
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
               child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 120,
-                  // height: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width*9/16,
                   decoration: BoxDecoration(
-                    color: globals.tileColor[globals.theme],
+                    color: globals.theme.getCardAltColor(index),
                     shape: BoxShape.rectangle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: globals.shadowColor,
-                        // color: Colors.grey.withOpacity(0.1),
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        // offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                    // borderRadius: BorderRadius.all(Radius.circular(15)),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          globals.getPoint(index),
-                          style: TextStyle(
-                              fontSize: 34,
-                              fontWeight: FontWeight.bold,
-                              color: globals.headColor[globals.theme]),
-                        ),
-                        Text(
-                          globals.getName(index),
-                          style: TextStyle(
-                              fontSize: 34,
-                              fontWeight: FontWeight.bold,
-                              color: globals.headColor[globals.theme]),
-                        ),
-                      ],
-                    ),
-                  )),
+                  child: Icon(Icons.person, size: (MediaQuery.of(context).size.width*9/16)*0.7, color: globals.theme.getCardIconColor(index))),
             ),
-            Spacer(),
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 90,
-                  // height: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.fromLTRB(16, 8, 16,8),
+              child: InkWell(
+                onTap: (){
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditName(index)),
+                  );
+                },
+                child: Container(
                   decoration: BoxDecoration(
-                    color: globals.tileColor[globals.theme],
-                    shape: BoxShape.rectangle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: globals.shadowColor,
-                        // color: Colors.grey.withOpacity(0.1),
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        // offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    color: globals.theme.getCardColor(),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          globals.getPoint(index),
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: globals.headColor[globals.theme]),
-                        ),
-                        Text(
-                          globals.getName(index),
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: globals.headColor[globals.theme]),
-                        ),
-                      ],
+                  child: ListTile(
+                    title: Text('Name : '+globals.getName(index), style: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getTitleColor()),),
+                    leading: Container(
+                      height: 44,
+                      width: 44,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        color: globals.theme.getCardAltColor(index),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
+                      alignment: Alignment.center,
+                      child: Icon(Icons.contacts, color: globals.theme.getCardIconColor(index),),
+                      // child: Text(globals.getRank(index).toString(), style: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getCardContentColor(index)),),
                     ),
-                  )),
+                    subtitle: Text(
+                      'Tap to edit',
+                      style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold, color: globals.theme.getSubtitleColor()),
+                    ),
+                  ),
+                ),
+              ),
             ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16,8),
+              child: InkWell(
+                onTap: (){
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditPoint(index)),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: globals.theme.getCardColor(),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                  child: ListTile(
+                    title: Text('Point : '+globals.getPoint(index).toString(), style: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getTitleColor()),),
+                    leading: Container(
+                      height: 44,
+                      width: 44,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        color: globals.theme.getCardAltColor(index),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
+                      alignment: Alignment.center,
+                      child: Icon(Icons.book, color: globals.theme.getCardIconColor(index),),
+                      // child: Text(globals.getRank(index).toString(), style: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getCardContentColor(index)),),
+                    ),
+                    subtitle: Text(
+                      'Tap to edit',
+                      style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold, color: globals.theme.getSubtitleColor()),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            topThreeBuilder(index, context),
+            NextPerson(index),
           ],
-        ));
+        )
+    );
   }
 }
+class NextPerson extends StatelessWidget {
+  final int index;
+  NextPerson(this.index);
+  @override
+  Widget build(BuildContext context) {
+    if(index == 0){
+      return Container();
+    }else{
+      return nextPersonTileBuilder(index-1, context);
+    }
+  }
+}
+

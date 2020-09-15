@@ -1,73 +1,89 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'globals.dart' as globals;
-import 'sliver_components.dart';
-import 'tile_builder.dart';
-import 'add.dart';
-import 'package:animations/animations.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'objects/globals.dart' as globals;
+import 'builder/tile_builder.dart';
+import 'add_name.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  _getThemeIcon(){
+    if(globals.theme.isLight){
+      return EvaIcons.moon;
+    }else{
+      return EvaIcons.sun;
+    }
+  }
   @override
   Widget build(BuildContext context) {
+    globals.start();
     return Scaffold(
-      backgroundColor: globals.backgroundColor[globals.theme],
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
+      backgroundColor: globals.theme.getBackgroundColor(),
+      body: CustomScrollView(
+          slivers:[
             SliverAppBar(
-              expandedHeight: 100.0,
-              // floating: true,
-              // pinned: true,
-              iconTheme: IconThemeData(color: globals.headColor[globals.theme]),
+              pinned: true,
+              expandedHeight: 150.0,
+              backgroundColor: globals.theme.getBackgroundColor(),
+              flexibleSpace: FlexibleSpaceBar(
+                titlePadding: EdgeInsets.fromLTRB(32, 8, 0, 10),
+                title: Text("Dashboard", style: GoogleFonts.poppins(textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getPrimaryColor()))),
+              ),
               actions: [
                 IconButton(
-                    icon: Icon(Icons.brightness_2),
-                    onPressed: () {
-                      setState(() {
-                        if (globals.theme == 1)
-                          globals.theme = 0;
-                        else
-                          globals.theme = 1;
-                      });
-                    })
+                  icon: Icon(_getThemeIcon(), color: globals.theme.getPrimaryColor(),),
+                  onPressed: (){
+                    setState(() {
+                      globals.theme.changeTheme();
+                    });
+
+                  },
+                ),
+                IconButton(
+                  icon: Icon(EvaIcons.personAdd, color: globals.theme.getPrimaryColor(),),
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddName())
+                    );
+
+                  },
+                ),
               ],
-              backgroundColor: globals.backgroundColor[globals.theme],
-              flexibleSpace: FlexibleSpaceBar(
-                titlePadding: EdgeInsets.fromLTRB(32, 0, 0, 0),
-                title: Text("My List", style: globals.headText[globals.theme]),
-              ),
             ),
-          ];
-        },
-        body: ListView.builder(
-            itemCount: globals.getLength() - 7,
-            itemBuilder: (BuildContext context, int index) {
-              return tileBuilder(index, context);
-            }),
+            SliverGrid(
+              delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return tileBuilder(index, context);
+                    },
+                childCount: globals.getLength(),
+              ), gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: MediaQuery.of(context).size.width,
+              childAspectRatio: 4.0,
+            ),
+
+            ),
+          ]
       ),
-
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: globals.accentColor[globals.theme],
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Add()),
-          );
-        },
-        // elevation: 0.0,
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-      ), //
-
-      // This trailing comma makes auto-formatting nicer for build methods.
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: globals.theme.getFloatingColor(),
+      //   onPressed: () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => Add()),
+      //     );
+      //   },
+      //   child: Icon(
+      //     Icons.add,
+      //     color: Colors.white,
+      //   ),
+      // ), //// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
