@@ -1,7 +1,7 @@
 library addscreentheme;
 
 import 'package:flutter/material.dart';
-import '../globals.dart' as globals;
+import 'package:plist/components/core/globals.dart' as globals;
 
 Color getDoneButtonColor(){
   if(globals.theme.isLight){

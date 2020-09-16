@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterexam/components/add_name.dart';
+import 'components/add_name.dart';
 import 'components/add_point.dart';
 import 'components/home.dart';
 

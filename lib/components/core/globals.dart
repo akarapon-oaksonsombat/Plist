@@ -1,11 +1,11 @@
 library globals;
 
-import 'theme/CustomTheme.dart';
+import 'themedata/app_theme.dart';
 import 'data/example_data.dart';
 import 'data/personal_data.dart';
 
-CustomTheme theme;
-int currentIndex = 0;
+AppTheme theme;
+
 bool _startEnable = true;
 List<PersonalData> _data = List();
 ExampleData _exampleData;
@@ -13,7 +13,7 @@ bool _exampleEnable = true;
 
 void start(){
   if(_startEnable){
-    theme = CustomTheme();
+    theme = AppTheme();
     if(_exampleEnable){
       startWithExample();
     }

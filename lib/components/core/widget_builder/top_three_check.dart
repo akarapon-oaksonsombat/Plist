@@ -3,7 +3,7 @@ library topthreebuilder;
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../objects/globals.dart' as globals;
+import '../globals.dart' as globals;
 
 String _sub;
 
@@ -18,7 +18,7 @@ IconData medal (int rank){
 }
 Color rankThumbnailColor (int index){
   if(globals.getRank(index) == 1){
-    return globals.theme.getCardAltColor(8);
+    return globals.theme.dynamicCardAltColor(8);
   }else if(globals.getRank(index)  == 2){
     if(globals.theme.isLight){
       return Color.fromRGBO(199, 199, 201, 1.0);
@@ -26,17 +26,17 @@ Color rankThumbnailColor (int index){
       return Color.fromRGBO(141, 141, 147, 1.0);
     }
   }else if(globals.getRank(index)  == 3){
-    return globals.theme.getCardAltColor(4);
-  }else return globals.theme.getCardAltColor(index);
+    return globals.theme.dynamicCardAltColor(4);
+  }else return globals.theme.dynamicCardAltColor(index);
 }
 Color rankIconColor (int index){
   if(globals.getRank(index)  == 1){
-    return globals.theme.getCardIconColor(8);
+    return globals.theme.dynamicCardIconColor(8);
   }else if(globals.getRank(index)  == 2){
     return Colors.black;
   }else if(globals.getRank(index)  == 3){
-    return globals.theme.getCardIconColor(4);
-  }else return globals.theme.getCardIconColor(index);
+    return globals.theme.dynamicCardIconColor(4);
+  }else return globals.theme.dynamicCardIconColor(index);
 }
 Widget topThreeBuilder(int index, BuildContext context) {
   if(globals.hasData(index+1)){
@@ -52,7 +52,7 @@ Widget topThreeBuilder(int index, BuildContext context) {
       child: Container(
 
         decoration: BoxDecoration(
-          color: globals.theme.getCardColor(),
+          color: globals.theme.dynamicCardColor(),
           // shape: BoxShape.rectangle,
           // boxShadow: [
           //   BoxShadow(
@@ -68,7 +68,7 @@ Widget topThreeBuilder(int index, BuildContext context) {
         child: ListTile(
           title: Text(
             globals.getRank(index).toString() +' Runner Up',
-            style: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getTitleColor()),
+            style: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.dynamicTitleColor()),
             // style: globals.titleText[globals.theme],
           ),
           leading: Container(
@@ -85,7 +85,7 @@ Widget topThreeBuilder(int index, BuildContext context) {
           ),
           subtitle: Text(
             _sub,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: globals.theme.getSubtitleColor()),
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: globals.theme.dynamicSubtitleColor()),
           ),
         ),
       ),
@@ -96,7 +96,7 @@ Widget topThreeBuilder(int index, BuildContext context) {
       child: Container(
 
         decoration: BoxDecoration(
-          color: globals.theme.getCardColor(),
+          color: globals.theme.dynamicCardColor(),
           // shape: BoxShape.rectangle,
           // boxShadow: [
           //   BoxShadow(
@@ -112,7 +112,7 @@ Widget topThreeBuilder(int index, BuildContext context) {
         child: ListTile(
           title: Text(
             globals.getRank(index).toString() +' Runner Up',
-            style: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getTitleColor()),
+            style: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.dynamicTitleColor()),
             // style: globals.titleText[globals.theme],
           ),
           leading: Container(
@@ -129,7 +129,7 @@ Widget topThreeBuilder(int index, BuildContext context) {
           ),
           subtitle: Text(
             _sub,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: globals.theme.getSubtitleColor()),
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: globals.theme.dynamicSubtitleColor()),
           ),
         ),
       ),

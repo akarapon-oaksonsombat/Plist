@@ -1,18 +1,19 @@
+library apptheme;
 import 'package:flutter/material.dart';
 import 'theme_light.dart';
 import 'theme_dark.dart';
-class CustomTheme{
+class AppTheme{
   // fields
   DarkTheme darkTheme;
   LightTheme lightTheme;
   bool isLight = true;
   int themeNumber = 9;
   // constructor
-  CustomTheme(){
+  AppTheme(){
     darkTheme = DarkTheme();
     lightTheme = LightTheme();
   }
-  bool changeTheme(){
+  bool change(){
     try{
       if(isLight==true) isLight=false;
       else isLight=true;
@@ -24,22 +25,22 @@ class CustomTheme{
     }
   }
   // Get theme color
-  Color getPrimaryColor(){
+  Color dynamicPrimaryColor(){
     if(isLight){
       return lightTheme.primary;
     }else return darkTheme.primary;
   }
-  Color getTitleColor(){
+  Color dynamicTitleColor(){
     if(isLight){
       return lightTheme.title;
     }else return darkTheme.title;
   }
-  Color getSubtitleColor(){
+  Color dynamicSubtitleColor(){
     if(isLight){
       return lightTheme.subtitle;
     }else return darkTheme.subtitle;
   }
-  Color getBackgroundColor(){
+  Color dynamicBackgroundColor(){
     if(isLight){
       return lightTheme.background;
     }else return darkTheme.background;
@@ -49,36 +50,36 @@ class CustomTheme{
     if(index%themeNumber==themeNumber) return 0;
     else return index%themeNumber;
   }
-  Color getCardContentColor(int index){
+  Color dynamicCardContentColor(int index){
     if(isLight){
       return lightTheme.primary;
     }else return darkTheme.primary;
   }
-  Color getCardColor(){
+  Color dynamicCardColor(){
     if(isLight){
       return lightTheme.cardBackground;
     }else return darkTheme.cardBackground;
   }
-  Color getCardIconColor(int index){
+  Color dynamicCardIconColor(int index){
     if(isLight){
       return lightTheme.card[_choose(index)].icon;
     }else return darkTheme.background;
   }
-  Color getCardMainColor(int index){
+  Color dynamicCardMainColor(int index){
     if(isLight){
       return lightTheme.card[_choose(index)].main;
     }else{
       return darkTheme.card[_choose(index)].main;
     }
   }
-  Color getCardAltColor(int index){
+  Color dynamicCardAltColor(int index){
     if(isLight){
       return lightTheme.card[_choose(index)].alt;
     }else{
       return darkTheme.card[_choose(index)].alt;
     }
   }
-  Color getCloseButtonColor(){
+  Color dynamicCloseButtonColor(){
     if(isLight){
       return lightTheme.card[6].main;
     }else{

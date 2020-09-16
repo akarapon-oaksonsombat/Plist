@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'add_point.dart';
 import 'detail.dart';
-import 'objects/globals.dart' as globals;
-import 'objects/theme/add_screen_theme.dart' as theme;
+import 'core/globals.dart' as globals;
+import 'core/themedata/add_screen_theme.dart' as theme;
 
 class EditName extends StatefulWidget {
   EditName(this.index);
@@ -34,7 +34,7 @@ class _EditNameState extends State<EditName> {
     return Scaffold(
         backgroundColor: theme.getBackgroundColor(),
         appBar: AppBar(
-          iconTheme: IconThemeData(color: globals.theme.getPrimaryColor()),
+          iconTheme: IconThemeData(color: globals.theme.dynamicPrimaryColor()),
           backgroundColor: theme.getAppBarColor(),
           elevation: 0.0,
           centerTitle: true,
@@ -122,11 +122,11 @@ class _EditNameState extends State<EditName> {
                     child: TextField(
                       controller: _controller,
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(fontSize: 24,textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getPrimaryColor())),
+                      style: GoogleFonts.poppins(fontSize: 24,textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.dynamicPrimaryColor())),
                       decoration: InputDecoration(
                         // icon: Icon(EvaIcons.person, color: globals.theme.getPrimaryColor(),),
                         hintText: globals.getName(index),
-                        hintStyle: GoogleFonts.poppins(fontSize: 24,textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getSubtitleColor())),
+                        hintStyle: GoogleFonts.poppins(fontSize: 24,textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.dynamicSubtitleColor())),
                         border: UnderlineInputBorder(),
 
                         // fillColor: globals.theme.getBackgroundColor(),

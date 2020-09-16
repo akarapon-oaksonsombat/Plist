@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'home.dart';
-import 'objects/globals.dart' as globals;
-import 'objects/numpad.dart';
-import 'objects/theme/add_screen_theme.dart' as theme;
+import 'core/globals.dart' as globals;
+import 'core/themedata/add_screen_theme.dart' as theme;
 
 class AddPoint extends StatefulWidget {
   AddPoint(this.name);
@@ -68,7 +67,7 @@ class _AddPointState extends State<AddPoint> {
     return Scaffold(
         backgroundColor: theme.getHeadColor(),
         appBar: AppBar(
-          iconTheme: IconThemeData(color: globals.theme.getPrimaryColor()),
+          iconTheme: IconThemeData(color: globals.theme.dynamicPrimaryColor()),
           backgroundColor: theme.getAppBarColor(),
           elevation: 0.0,
           centerTitle: true,

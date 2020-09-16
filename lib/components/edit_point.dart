@@ -1,13 +1,14 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterexam/components/detail.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:plist/components/detail.dart';
+
 import 'home.dart';
-import 'objects/globals.dart' as globals;
-import 'objects/numpad.dart';
-import 'objects/theme/add_screen_theme.dart' as theme;
+import 'core/globals.dart' as globals;
+import 'core/widget_builder/numpad.dart';
+import 'core/themedata//add_screen_theme.dart' as theme;
 
 class EditPoint extends StatefulWidget {
   EditPoint(this.index);
@@ -72,7 +73,7 @@ class _EditPointState extends State<EditPoint> {
     return Scaffold(
         backgroundColor: theme.getHeadColor(),
         appBar: AppBar(
-          iconTheme: IconThemeData(color: globals.theme.getPrimaryColor()),
+          iconTheme: IconThemeData(color: globals.theme.dynamicPrimaryColor()),
           backgroundColor: theme.getAppBarColor(),
           elevation: 0.0,
           centerTitle: true,
