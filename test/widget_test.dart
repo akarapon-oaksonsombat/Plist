@@ -7,9 +7,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:plist/components/home.dart';
+import 'package:plisto/components/home.dart';
 
-import 'package:plist/main.dart';
+import 'package:plisto/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

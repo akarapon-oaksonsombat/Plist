@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
                 backgroundColor: globals.theme.dynamicBackgroundColor(),
                 flexibleSpace: FlexibleSpaceBar(
                   titlePadding: EdgeInsets.fromLTRB(32, 8, 0, 10),
-                  title: Text("Dashboard", style: GoogleFonts.poppins(textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.dynamicPrimaryColor()))),
+                  title: Text("Plist", style: GoogleFonts.poppins(textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.dynamicPrimaryColor()))),
                 ),
                 actions: [
                   IconButton(

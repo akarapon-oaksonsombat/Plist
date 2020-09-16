@@ -1,4 +1,4 @@
-package com.akarapon.plist
+package com.akarapon.plisto
 
 import io.flutter.embedding.android.FlutterActivity
 

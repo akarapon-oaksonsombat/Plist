@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:plist/components/detail.dart';
+import 'package:plisto/components/detail.dart';
 
 import 'home.dart';
 import 'core/globals.dart' as globals;
