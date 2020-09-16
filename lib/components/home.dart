@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
                 backgroundColor: globals.theme.dynamicBackgroundColor(),
                 flexibleSpace: FlexibleSpaceBar(
                   titlePadding: EdgeInsets.fromLTRB(32, 8, 0, 10),
-                  title: Text("Plist", style: GoogleFonts.poppins(textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.dynamicPrimaryColor()))),
+                  title: Text("Plisto", style: GoogleFonts.sriracha(textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.dynamicPrimaryColor()))),
                 ),
                 actions: [
                   IconButton(
@@ -62,8 +62,23 @@ class _HomePageState extends State<HomePage> {
                 ), gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: MediaQuery.of(context).size.width,
                 childAspectRatio: 4.0,
+                ),
               ),
-
+              SliverGrid(
+                delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                    return Container(
+                      height: 10.0,
+                      child: Center(
+                        child: Text('Plisto 1.0 Beta 6', textAlign: TextAlign.center ,style: TextStyle(fontSize: 12.0,color: globals.theme.dynamicSubtitleColor()),),
+                      ),
+                    );
+                  },
+                  childCount: 1,
+                ), gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: MediaQuery.of(context).size.width,
+                childAspectRatio: 20/3,
+              ),
               ),
             ]
         ),
