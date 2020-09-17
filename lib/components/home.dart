@@ -2,10 +2,11 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'core/globals.dart' as globals;
-import 'core/widget_builder/icon_generator.dart' as icon;
-import 'core/widget_builder/tile_builder.dart';
+import 'package:plisto/components/core/plisto_core.dart';
+import 'package:plisto/components/core/plisto_theme.dart';
+import 'package:plisto/components/core/plisto_builder.dart';
 import 'add_name.dart';
+import 'detail_sheet.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -17,38 +18,54 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    globals.start();
+    double fontFactor = MediaQuery.of(context).textScaleFactor;
     return Scaffold(
-      backgroundColor: globals.theme.dynamicBackgroundColor(),
+      backgroundColor: PlistoDynamic.background(),
       body: SafeArea(
         child: CustomScrollView(
             slivers:[
               SliverAppBar(
                 pinned: true,
                 expandedHeight: 150.0,
-                backgroundColor: globals.theme.dynamicBackgroundColor(),
+                backgroundColor: PlistoDynamic.background(),
                 flexibleSpace: FlexibleSpaceBar(
                   titlePadding: EdgeInsets.fromLTRB(32, 8, 0, 10),
-                  title: Text("Plisto", style: GoogleFonts.sriracha(textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.dynamicPrimaryColor()))),
+                  title: Text(
+                      "Plisto",
+                      style: GoogleFonts.sriracha(
+                          textStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: PlistoDynamic.primary()
+                          )
+                      )
+                  ),
                 ),
                 actions: [
                   IconButton(
-                    icon: Icon(icon.brightness(), color: globals.theme.dynamicPrimaryColor(),),
+                    icon: Icon(PlistoCore.brightnessIcon(), color: PlistoDynamic.primary(),),
                     onPressed: (){
                       setState(() {
-                        globals.theme.change();
+                        PlistoDynamic.themeChange();
                       });
 
                     },
                   ),
                   IconButton(
-                    icon: Icon(EvaIcons.personAdd, color: globals.theme.dynamicPrimaryColor(),),
+                    icon: Icon(EvaIcons.personAdd, color: PlistoDynamic.primary(),),
                     onPressed: (){
                       Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => AddName())
                       );
-
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.control_point, color: PlistoDynamic.primary(),),
+                    onPressed: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BottomSheetBuilder())
+                      );
                     },
                   ),
                 ],
@@ -56,9 +73,9 @@ class _HomePageState extends State<HomePage> {
               SliverGrid(
                 delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
-                        return tileBuilder(index, context);
+                        return PlistoBuilder.tile(index, context);
                       },
-                  childCount: globals.getLength(),
+                  childCount: PlistoCore.getLength(),
                 ), gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: MediaQuery.of(context).size.width,
                 childAspectRatio: 4.0,
@@ -67,10 +84,17 @@ class _HomePageState extends State<HomePage> {
               SliverGrid(
                 delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
-                    return Container(
-                      height: 10.0,
-                      child: Center(
-                        child: Text('Plisto 1.0 Beta 6', textAlign: TextAlign.center ,style: TextStyle(fontSize: 12.0,color: globals.theme.dynamicSubtitleColor()),),
+                    return InkWell(
+                      onTap: (){
+                        setState(() {
+                          PlistoCore.startWithExample();
+                        });
+                      },
+                      child: Container(
+                        height: 10.0,
+                        child: Center(
+                          child: Text('Plisto 1.0 Beta 6', textAlign: TextAlign.center ,style: TextStyle(fontSize: fontFactor*12.0,color: PlistoDynamic.subtitle()),),
+                        ),
                       ),
                     );
                   },

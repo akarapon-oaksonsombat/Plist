@@ -3,12 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:plisto/components/core/plisto_core.dart';
+import 'package:plisto/components/core/plisto_theme.dart';
 import 'package:plisto/components/detail.dart';
-
-import 'home.dart';
-import 'core/globals.dart' as globals;
-import 'core/widget_builder/numpad.dart';
-import 'core/themedata//add_screen_theme.dart' as theme;
+import 'package:plisto/components/core/special_theme_add.dart';
 
 class EditPoint extends StatefulWidget {
   EditPoint(this.index);
@@ -20,7 +18,7 @@ class EditPoint extends StatefulWidget {
 
 class _EditPointState extends State<EditPoint> {
   _EditPointState(this.index){
-    _input = globals.getPoint(index).toString();
+    _input = PlistoCore.getPoint(index).toString();
   }
   final int index;
   String _input;
@@ -59,8 +57,7 @@ class _EditPointState extends State<EditPoint> {
       highlightColor: Colors.grey,
       borderRadius: BorderRadius.all(Radius.circular(100)),
       child: Container(
-          // width: 50.0, height: 50.0,
-          child: Center(child: Text(input, style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: theme.getAppBarContentColor())),),)),
+          child: Center(child: Text(input, style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: SpecialThemeAdd.getAppBarContentColor())),),)),
       onTap: (){
         setState(() {
           _check(input);
@@ -71,18 +68,18 @@ class _EditPointState extends State<EditPoint> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: theme.getHeadColor(),
+        backgroundColor: SpecialThemeAdd.getHeadColor(),
         appBar: AppBar(
-          iconTheme: IconThemeData(color: globals.theme.dynamicPrimaryColor()),
-          backgroundColor: theme.getAppBarColor(),
+          iconTheme: IconThemeData(color: PlistoDynamic.primary()),
+          backgroundColor: SpecialThemeAdd.getAppBarColor(),
           elevation: 0.0,
           centerTitle: true,
           title: Text(
-            globals.getName(index)+'\'s Point',
-            style: GoogleFonts.poppins(textStyle: TextStyle(fontWeight: FontWeight.bold, color: theme.getAppBarContentColor())),
+            PlistoCore.getName(index)+'\'s Point',
+            style: GoogleFonts.poppins(textStyle: TextStyle(fontWeight: FontWeight.bold, color: SpecialThemeAdd.getAppBarContentColor())),
           ),
           leading: IconButton(
-            icon: Icon(EvaIcons.closeCircle, color: theme.getAppBarContentColor(),),
+            icon: Icon(EvaIcons.closeCircle, color: SpecialThemeAdd.getAppBarContentColor(),),
             onPressed: (){
               Navigator.pushReplacement(
                   context,
@@ -92,10 +89,10 @@ class _EditPointState extends State<EditPoint> {
           ),
           actions: [
             IconButton(
-              icon: Icon(EvaIcons.checkmarkCircle2, color: theme.getAppBarContentColor(),),
+              icon: Icon(EvaIcons.checkmarkCircle2, color: SpecialThemeAdd.getAppBarContentColor(),),
               onPressed: (){
                 if(_checkPoint(_input)){
-                  globals.updatePoint(index, int.tryParse(_input));
+                  PlistoCore.updatePoint(index, int.tryParse(_input));
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => Detail(index: index,)),
@@ -137,10 +134,10 @@ class _EditPointState extends State<EditPoint> {
                 flex: 1,
                 child: Container(
                     decoration: BoxDecoration(
-                      color: theme.getBackgroundColor(),
+                      color: SpecialThemeAdd.getBackgroundColor(),
                       shape: BoxShape.rectangle,
                     ),
-                    child: Center(child: Text(_input, style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 56, fontWeight: FontWeight.bold, color: theme.getAppBarContentColor())),)),
+                    child: Center(child: Text(_input, style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 56, fontWeight: FontWeight.bold, color: SpecialThemeAdd.getAppBarContentColor())),)),
                 ),
               ),
               Flexible(
@@ -148,7 +145,7 @@ class _EditPointState extends State<EditPoint> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(32, 32, 32, 32),
                   child: Container(
-                    color: theme.getHeadColor(),
+                    color: SpecialThemeAdd.getHeadColor(),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -197,7 +194,7 @@ class _EditPointState extends State<EditPoint> {
                                   borderRadius: BorderRadius.all(Radius.circular(100)),
                                   child: Container(
                                       // width: 50.0, height: 50.0,
-                                      child: Center(child: Text('CLR', style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: theme.getAppBarContentColor())),),)),
+                                      child: Center(child: Text('CLR', style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: SpecialThemeAdd.getAppBarContentColor())),),)),
                                   onTap: (){
                                     setState(() {
                                       _input = '0';
@@ -213,7 +210,7 @@ class _EditPointState extends State<EditPoint> {
                                   borderRadius: BorderRadius.all(Radius.circular(100)),
                                   child: Container(
                                       // width: 50.0, height: 50.0,
-                                      child: Center(child: Icon(EvaIcons.backspace, color: theme.getAppBarContentColor(),),)),
+                                      child: Center(child: Icon(EvaIcons.backspace, color: SpecialThemeAdd.getAppBarContentColor(),),)),
                                   onTap: (){
                                     setState(() {
                                       _backspace();

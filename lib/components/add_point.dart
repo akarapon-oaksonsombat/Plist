@@ -3,9 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'home.dart';
-import 'core/globals.dart' as globals;
-import 'core/themedata/add_screen_theme.dart' as theme;
+import 'package:plisto/components/core/plisto_core.dart';
+import 'package:plisto/components/core/plisto_theme.dart';
+import 'package:plisto/components/home.dart';
+import 'package:plisto/components/core/special_theme_add.dart';
 
 class AddPoint extends StatefulWidget {
   AddPoint(this.name);
@@ -54,7 +55,7 @@ class _AddPointState extends State<AddPoint> {
       borderRadius: BorderRadius.all(Radius.circular(100)),
       child: Container(
           // width: 50.0, height: 50.0,
-          child: Center(child: Text(input, style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: theme.getAppBarContentColor())),),)),
+          child: Center(child: Text(input, style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: SpecialThemeAdd.getAppBarContentColor())),),)),
       onTap: (){
         setState(() {
           _check(input);
@@ -65,28 +66,28 @@ class _AddPointState extends State<AddPoint> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: theme.getHeadColor(),
+        backgroundColor: SpecialThemeAdd.getHeadColor(),
         appBar: AppBar(
-          iconTheme: IconThemeData(color: globals.theme.dynamicPrimaryColor()),
-          backgroundColor: theme.getAppBarColor(),
+          iconTheme: IconThemeData(color: PlistoDynamic.primary()),
+          backgroundColor: SpecialThemeAdd.getAppBarColor(),
           elevation: 0.0,
           centerTitle: true,
           title: Text(
             name+'\'s Point',
-            style: GoogleFonts.poppins(textStyle: TextStyle(fontWeight: FontWeight.bold, color: theme.getAppBarContentColor())),
+            style: GoogleFonts.poppins(textStyle: TextStyle(fontWeight: FontWeight.bold, color: SpecialThemeAdd.getAppBarContentColor())),
           ),
           leading: IconButton(
-            icon: Icon(EvaIcons.arrowCircleLeft, color: theme.getAppBarContentColor(),),
+            icon: Icon(EvaIcons.arrowCircleLeft, color: SpecialThemeAdd.getAppBarContentColor(),),
             onPressed: (){
               Navigator.pop(context);
             },
           ),
           actions: [
             IconButton(
-              icon: Icon(EvaIcons.checkmarkCircle2, color: theme.getAppBarContentColor(),),
+              icon: Icon(EvaIcons.checkmarkCircle2, color: SpecialThemeAdd.getAppBarContentColor(),),
               onPressed: (){
                 if(_checkPoint(_input)){
-                  globals.addNew(name, int.tryParse(_input));
+                  PlistoCore.addNew(name, int.tryParse(_input));
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => HomePage()),
@@ -129,10 +130,10 @@ class _AddPointState extends State<AddPoint> {
                 flex: 1,
                 child: Container(
                     decoration: BoxDecoration(
-                      color: theme.getBackgroundColor(),
+                      color: SpecialThemeAdd.getBackgroundColor(),
                       shape: BoxShape.rectangle,
                     ),
-                    child: Center(child: Text(_input, style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 56, fontWeight: FontWeight.bold, color: theme.getAppBarContentColor())),)),
+                    child: Center(child: Text(_input, style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 56, fontWeight: FontWeight.bold, color: SpecialThemeAdd.getAppBarContentColor())),)),
                 ),
               ),
               Flexible(
@@ -140,7 +141,7 @@ class _AddPointState extends State<AddPoint> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(32, 32, 32, 32),
                   child: Container(
-                    color: theme.getHeadColor(),
+                    color: SpecialThemeAdd.getHeadColor(),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -189,7 +190,7 @@ class _AddPointState extends State<AddPoint> {
                                   borderRadius: BorderRadius.all(Radius.circular(100)),
                                   child: Container(
                                       // width: 50.0, height: 50.0,
-                                      child: Center(child: Text('CLR', style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: theme.getAppBarContentColor())),),)),
+                                      child: Center(child: Text('CLR', style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: SpecialThemeAdd.getAppBarContentColor())),),)),
                                   onTap: (){
                                     setState(() {
                                       _input = '0';
@@ -205,7 +206,7 @@ class _AddPointState extends State<AddPoint> {
                                   borderRadius: BorderRadius.all(Radius.circular(100)),
                                   child: Container(
                                       // width: 50.0, height: 50.0,
-                                      child: Center(child: Icon(EvaIcons.backspace, color: theme.getAppBarContentColor(),),)),
+                                      child: Center(child: Icon(EvaIcons.backspace, color: SpecialThemeAdd.getAppBarContentColor(),),)),
                                   onTap: (){
                                     setState(() {
                                       _backspace();

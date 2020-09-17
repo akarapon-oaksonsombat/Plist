@@ -1,3 +1,4 @@
+library personal_data;
 class PersonalData {
   String name;
   int point;

@@ -1,5 +1,6 @@
+library example_data;
 class ExampleData{
-  List<int> point = [
+  static const List<int> point = [
     90,
     85,
     84,
@@ -10,7 +11,7 @@ class ExampleData{
     98,
     90,
   ];
-  List<String> name = [
+  static const List<String> name = [
     'Harry Potter',
     'Ronald Weasley',
     'Hermione Granger',

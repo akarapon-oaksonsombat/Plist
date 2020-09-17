@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'add_point.dart';
-import 'core/globals.dart' as globals;
-import 'core/themedata/add_screen_theme.dart' as theme;
+import 'package:plisto/components/core/plisto_theme.dart';
+import 'package:plisto/components/core/special_theme_add.dart';
+import 'package:plisto/components/add_point.dart';
 
 class AddName extends StatefulWidget {
   @override
@@ -25,25 +25,25 @@ class _AddNameState extends State<AddName> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: theme.getBackgroundColor(),
+        backgroundColor: SpecialThemeAdd.getBackgroundColor(),
         appBar: AppBar(
-          iconTheme: IconThemeData(color: globals.theme.dynamicPrimaryColor()),
-          backgroundColor: theme.getAppBarColor(),
+          iconTheme: IconThemeData(color: PlistoDynamic.primary()),
+          backgroundColor: SpecialThemeAdd.getAppBarColor(),
           elevation: 0.0,
           centerTitle: true,
           title: Text(
             'Enter Name',
-            style: GoogleFonts.poppins(textStyle: TextStyle(fontWeight: FontWeight.bold, color: theme.getAppBarContentColor())),
+            style: GoogleFonts.poppins(textStyle: TextStyle(fontWeight: FontWeight.bold, color: SpecialThemeAdd.getAppBarContentColor())),
           ),
           leading: IconButton(
-            icon: Icon(EvaIcons.closeCircle, color: theme.getAppBarContentColor(),),
+            icon: Icon(EvaIcons.closeCircle, color: SpecialThemeAdd.getAppBarContentColor(),),
             onPressed: (){
               Navigator.pop(context);
             },
           ),
           actions: [
             IconButton(
-              icon: Icon(EvaIcons.arrowCircleRight, color: theme.getAppBarContentColor(),),
+              icon: Icon(EvaIcons.arrowCircleRight, color: SpecialThemeAdd.getAppBarContentColor(),),
               onPressed: (){
                 if(_controller.text == ''){
                   showDialog<void>(
@@ -90,11 +90,11 @@ class _AddNameState extends State<AddName> {
                     width: MediaQuery.of(context).size.width*0.5,
                     height: MediaQuery.of(context).size.width*0.5,
                     decoration: BoxDecoration(
-                      color: theme.getHeadColor(),
+                      color: SpecialThemeAdd.getHeadColor(),
                       shape: BoxShape.circle,
                       // borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
-                    child: Icon(Icons.person, size: (MediaQuery.of(context).size.width)*0.4, color: theme.getHeadIconColor())),
+                    child: Icon(Icons.person, size: (MediaQuery.of(context).size.width)*0.4, color: SpecialThemeAdd.getHeadIconColor())),
               ),
               SizedBox(height: 16,),
               Row(
@@ -111,11 +111,11 @@ class _AddNameState extends State<AddName> {
                     child: TextField(
                       controller: _controller,
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(fontSize: 24,textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.dynamicPrimaryColor())),
+                      style: GoogleFonts.poppins(fontSize: 24,textStyle: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.primary())),
                       decoration: InputDecoration(
                         // icon: Icon(EvaIcons.person, color: globals.theme.getPrimaryColor(),),
                           hintText: 'Enter here',
-                          hintStyle: GoogleFonts.poppins(fontSize: 24,textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.dynamicSubtitleColor())),
+                          hintStyle: GoogleFonts.poppins(fontSize: 24,textStyle: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.subtitle())),
                           border: UnderlineInputBorder(),
 
                           // fillColor: globals.theme.getBackgroundColor(),
