@@ -18,8 +18,8 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> {
-  _DetailState(this.index);
-  final int index;
+  _DetailState(this._index);
+  int _index;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class _DetailState extends State<Detail> {
           elevation: 0.0,
           centerTitle: true,
           title: Text(
-            PlistoCore.getName(index),
+            PlistoCore.getName(_index),
             style: GoogleFonts.poppins(textStyle: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.primary())),
           ),
           leading: IconButton(
@@ -43,38 +43,32 @@ class _DetailState extends State<Detail> {
             IconButton(
               icon: Icon(EvaIcons.personDelete),
               onPressed: (){
-                PlistoCore.delete(index);
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                    ModalRoute.withName('')
-                );
+                PlistoCore.delete(_index);
+                Navigator.pop(context);
               },
             ),
           ],
         ),
         body: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-              child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.width*9/16,
-                  decoration: BoxDecoration(
-                    color: PlistoDynamic.alt(index),
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                  ),
-                  child: Icon(Icons.person, size: (MediaQuery.of(context).size.width*9/16)*0.7, color: PlistoDynamic.icon(index))),
+            AspectRatio(
+              aspectRatio: 6/4,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                child: Container(
+                    decoration: BoxDecoration(
+                      color: PlistoDynamic.alt(_index),
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: Icon(Icons.person, size: (MediaQuery.of(context).size.width*9/16)*0.7, color: PlistoDynamic.icon(_index))),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16,8),
               child: InkWell(
                 onTap: (){
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => EditName(index)),
-                  );
+                  _editName(context);
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -82,18 +76,19 @@ class _DetailState extends State<Detail> {
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
                   child: ListTile(
-                    title: Text('Name : '+PlistoCore.getName(index), style: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.title()),),
-                    leading: Container(
-                      height: 44,
-                      width: 44,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        color: PlistoDynamic.alt(index),
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                    title: Text('Name : '+PlistoCore.getName(_index), style: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.title()),),
+                    leading: AspectRatio(
+                      aspectRatio: 1/1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          color: PlistoDynamic.alt(_index),
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        alignment: Alignment.center,
+                        child: Icon(Icons.contacts, color: PlistoDynamic.icon(_index),),
+                        // child: Text(globals.getRank(index).toString(), style: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getCardContentColor(index)),),
                       ),
-                      alignment: Alignment.center,
-                      child: Icon(Icons.contacts, color: PlistoDynamic.icon(index),),
-                      // child: Text(globals.getRank(index).toString(), style: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getCardContentColor(index)),),
                     ),
                     subtitle: Text(
                       'Tap to edit',
@@ -107,10 +102,7 @@ class _DetailState extends State<Detail> {
               padding: const EdgeInsets.fromLTRB(16, 8, 16,8),
               child: InkWell(
                 onTap: (){
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => EditPoint(index)),
-                  );
+                  _editPoint(context, _index);
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -118,17 +110,18 @@ class _DetailState extends State<Detail> {
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
                   child: ListTile(
-                    title: Text('Point : '+PlistoCore.getPoint(index).toString(), style: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.title()),),
-                    leading: Container(
-                      height: 44,
-                      width: 44,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        color: PlistoDynamic.alt(index),
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                    title: Text('Point : '+PlistoCore.getPoint(_index).toString(), style: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.title()),),
+                    leading: AspectRatio(
+                      aspectRatio: 1/1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          color: PlistoDynamic.alt(_index),
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        alignment: Alignment.center,
+                        child: Icon(Icons.book, color: PlistoDynamic.icon(_index),),
                       ),
-                      alignment: Alignment.center,
-                      child: Icon(Icons.book, color: PlistoDynamic.icon(index),),
                     ),
                     subtitle: Text(
                       'Tap to edit',
@@ -138,11 +131,35 @@ class _DetailState extends State<Detail> {
                 ),
               ),
             ),
-            PlistoBuilder.rank(index, context),
-            NextPerson(index),
+            PlistoBuilder.rank(_index, context),
+            NextPerson(_index),
           ],
         )
     );
+  }
+  _editName(BuildContext context) async {
+    final String result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => EditName(PlistoCore.getName(_index)))
+    );
+    if(result != '' && result != null){
+      setState(() {
+        PlistoCore.updateName(_index, result);
+      });
+    }
+  }
+  _editPoint(BuildContext context, int index) async {
+    final int result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => EditPoint(index))
+    );
+    if(result != null){
+      setState(() {
+        String temp = PlistoCore.getName(index);
+        PlistoCore.updatePoint(index, result);
+        _index = PlistoCore.findName(temp);
+      });
+    }
   }
 }
 class NextPerson extends StatelessWidget {

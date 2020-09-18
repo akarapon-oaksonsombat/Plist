@@ -13,6 +13,7 @@ class AddName extends StatefulWidget {
 }
 
 class _AddNameState extends State<AddName> {
+  int _point = 0;
   TextEditingController _controller;
   void initState() {
     super.initState();
@@ -43,7 +44,7 @@ class _AddNameState extends State<AddName> {
           ),
           actions: [
             IconButton(
-              icon: Icon(EvaIcons.arrowCircleRight, color: SpecialThemeAdd.getAppBarContentColor(),),
+              icon: Icon(EvaIcons.checkmarkCircle2, color: SpecialThemeAdd.getAppBarContentColor(),),
               onPressed: (){
                 if(_controller.text == ''){
                   showDialog<void>(
@@ -71,40 +72,34 @@ class _AddNameState extends State<AddName> {
                     },
                   );
                 }else{
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AddPoint(_controller.text)),
-                  );
+                  _navigatorAddPoint(context);
                 }
               },
             ),
           ],
         ),
         body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: ListView(
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 64, 16, 8),
-                child: Container(
-                    width: MediaQuery.of(context).size.width*0.5,
-                    height: MediaQuery.of(context).size.width*0.5,
-                    decoration: BoxDecoration(
-                      color: SpecialThemeAdd.getHeadColor(),
-                      shape: BoxShape.circle,
-                      // borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    child: Icon(Icons.person, size: (MediaQuery.of(context).size.width)*0.4, color: SpecialThemeAdd.getHeadIconColor())),
+                child: AspectRatio(
+                  aspectRatio: 18/9,
+                  child: Container(
+                      decoration: BoxDecoration(
+                        color: SpecialThemeAdd.getHeadColor(),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(Icons.person, size: (MediaQuery.of(context).size.width)*0.3, color: SpecialThemeAdd.getHeadIconColor())),
+                ),
               ),
               SizedBox(height: 16,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Text('" ', style: GoogleFonts.poppins(fontSize: 34,textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getPrimaryColor())),),
                   Container(
                     width: MediaQuery.of(context).size.width*0.7,
                     decoration: BoxDecoration(
-                      // color: globals.theme.getCardColor(),
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
@@ -113,22 +108,59 @@ class _AddNameState extends State<AddName> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(fontSize: 24,textStyle: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.primary())),
                       decoration: InputDecoration(
-                        // icon: Icon(EvaIcons.person, color: globals.theme.getPrimaryColor(),),
                           hintText: 'Enter here',
                           hintStyle: GoogleFonts.poppins(fontSize: 24,textStyle: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.subtitle())),
                           border: UnderlineInputBorder(),
-
-                          // fillColor: globals.theme.getBackgroundColor(),
-                          // filled: true
                       ),
                     ),
                   ),
-                  // Text(' "', style: GoogleFonts.poppins(fontSize: 34,textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getPrimaryColor())),),
+                ],
+              ),
+              SizedBox(height: 16,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: (){
+                      _navigatorAddPoint(context);
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width*0.7,
+                      decoration: BoxDecoration(
+                        color: PlistoDynamic.subtitle3(),
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(_point.toString(), style: GoogleFonts.poppins(fontSize: 24,textStyle: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.subtitle())),),
+                            Container(
+                                child: Text('tap to edit', style: GoogleFonts.roboto(fontSize: 12,textStyle: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.subtitle())),)
+                            )
+                          ],
+                        ),
+                      )
+                    ),
+                  ),
                 ],
               ),
             ],
           ),
         )
     );
+  }
+  _navigatorAddPoint(BuildContext context) async {
+    final int result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AddPoint(_controller.text))
+    );
+    if(result!=null){
+      setState(() {
+        _point = result;
+      });
+    }
   }
 }

@@ -87,12 +87,13 @@ class _AddPointState extends State<AddPoint> {
               icon: Icon(EvaIcons.checkmarkCircle2, color: SpecialThemeAdd.getAppBarContentColor(),),
               onPressed: (){
                 if(_checkPoint(_input)){
-                  PlistoCore.addNew(name, int.tryParse(_input));
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                      ModalRoute.withName('')
-                  );
+                  // PlistoCore.addNew(name, int.tryParse(_input));
+                  Navigator.pop(context,int.tryParse(_input));
+                  // Navigator.pushAndRemoveUntil(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => HomePage()),
+                  //     ModalRoute.withName('')
+                  // );
                 }else{
                   showDialog<void>(
                     context: context,
@@ -228,4 +229,5 @@ class _AddPointState extends State<AddPoint> {
         )
     );
   }
+
 }

@@ -3,32 +3,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:plisto/components/core/plisto_core.dart';
 import 'package:plisto/components/core/plisto_theme.dart';
 import 'package:plisto/components/core/special_theme_add.dart';
-import 'package:plisto/components/detail.dart';
+import 'package:plisto/components/add_point.dart';
 
 class EditName extends StatefulWidget {
-  EditName(this.index);
-  final int index;
+  EditName(this.name);
+  final String name;
   @override
-  _EditNameState createState() => _EditNameState(index);
+  _EditNameState createState() => _EditNameState(name);
 }
 
 class _EditNameState extends State<EditName> {
-  _EditNameState(this.index);
-  final int index;
+  _EditNameState(this.name);
+  final String name;
+  int _point = 0;
   TextEditingController _controller;
   void initState() {
     super.initState();
     _controller = TextEditingController();
   }
-
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,10 +43,7 @@ class _EditNameState extends State<EditName> {
           leading: IconButton(
             icon: Icon(EvaIcons.closeCircle, color: SpecialThemeAdd.getAppBarContentColor(),),
             onPressed: (){
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => Detail(index: index,)),
-              );
+              Navigator.pop(context, null);
             },
           ),
           actions: [
@@ -81,41 +76,34 @@ class _EditNameState extends State<EditName> {
                     },
                   );
                 }else{
-                  PlistoCore.updateName(index, _controller.text);
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => Detail(index: index,)),
-                  );
+                  Navigator.pop(context, _controller.text);
                 }
               },
             ),
           ],
         ),
         body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: ListView(
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 64, 16, 8),
-                child: Container(
-                    width: MediaQuery.of(context).size.width*0.5,
-                    height: MediaQuery.of(context).size.width*0.5,
-                    decoration: BoxDecoration(
-                      color: SpecialThemeAdd.getHeadColor(),
-                      shape: BoxShape.circle,
-                      // borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    child: Icon(Icons.person, size: (MediaQuery.of(context).size.width)*0.4, color: SpecialThemeAdd.getHeadIconColor())),
+                child: AspectRatio(
+                  aspectRatio: 18/9,
+                  child: Container(
+                      decoration: BoxDecoration(
+                        color: SpecialThemeAdd.getHeadColor(),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(Icons.person, size: (MediaQuery.of(context).size.width)*0.3, color: SpecialThemeAdd.getHeadIconColor())),
+                ),
               ),
               SizedBox(height: 16,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Text('" ', style: GoogleFonts.poppins(fontSize: 34,textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getPrimaryColor())),),
                   Container(
                     width: MediaQuery.of(context).size.width*0.7,
                     decoration: BoxDecoration(
-                      // color: globals.theme.getCardColor(),
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
@@ -124,22 +112,35 @@ class _EditNameState extends State<EditName> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(fontSize: 24,textStyle: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.primary())),
                       decoration: InputDecoration(
-                        // icon: Icon(EvaIcons.person, color: globals.theme.getPrimaryColor(),),
-                        hintText: PlistoCore.getName(index),
+                        hintText: name,
                         hintStyle: GoogleFonts.poppins(fontSize: 24,textStyle: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.subtitle())),
                         border: UnderlineInputBorder(),
-
-                        // fillColor: globals.theme.getBackgroundColor(),
-                        // filled: true
                       ),
                     ),
                   ),
-                  // Text(' "', style: GoogleFonts.poppins(fontSize: 34,textStyle: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getPrimaryColor())),),
+                ],
+              ),
+              SizedBox(height: 8,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('tap name to edit', style: GoogleFonts.roboto(fontSize: 12,textStyle: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.subtitle())),)
                 ],
               ),
             ],
           ),
         )
     );
+  }
+  _navigatorAddPoint(BuildContext context) async {
+    final int result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AddPoint(_controller.text))
+    );
+    if(result!=null){
+      setState(() {
+        _point = result;
+      });
+    }
   }
 }

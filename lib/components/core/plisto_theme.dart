@@ -54,7 +54,12 @@ class PlistoDynamic {
   static Color icon(int index){
     index = _choose(index);
     if(_isLight) return PlistoLightTheme.icon[index];
-    else return PlistoDarkTheme.icon;
+    else return PlistoDarkTheme.background;
+  }
+  static Color onList(int index){
+    index = _choose(index);
+    if(_isLight) return PlistoLightTheme.icon[index];
+    else return PlistoDarkTheme.background;
   }
 }
 class PlistoDarkTheme {

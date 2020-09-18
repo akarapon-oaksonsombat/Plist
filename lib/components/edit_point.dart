@@ -81,10 +81,7 @@ class _EditPointState extends State<EditPoint> {
           leading: IconButton(
             icon: Icon(EvaIcons.closeCircle, color: SpecialThemeAdd.getAppBarContentColor(),),
             onPressed: (){
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => Detail(index: index,)),
-              );
+              Navigator.pop(context);
             },
           ),
           actions: [
@@ -92,11 +89,7 @@ class _EditPointState extends State<EditPoint> {
               icon: Icon(EvaIcons.checkmarkCircle2, color: SpecialThemeAdd.getAppBarContentColor(),),
               onPressed: (){
                 if(_checkPoint(_input)){
-                  PlistoCore.updatePoint(index, int.tryParse(_input));
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => Detail(index: index,)),
-                  );
+                  Navigator.pop(context,int.tryParse(_input));
                 }else{
                   showDialog<void>(
                     context: context,

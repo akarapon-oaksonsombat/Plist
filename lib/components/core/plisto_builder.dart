@@ -6,54 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:plisto/components/core/plisto_core.dart';
 import 'package:plisto/components/core/plisto_theme.dart';
 import 'package:plisto/components/detail.dart';
+import 'package:plisto/components/home.dart';
 
 class PlistoBuilder{
-  static Widget tile(int index, BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16,8),
-      child: Container(
-        // height: 100.0,
-        decoration: BoxDecoration(
-          color: PlistoDynamic.cardBackground(),
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-        ),
-        child: ListTile(
-          title: Text(
-            PlistoCore.getName(index),
-            style: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.title()),
-          ),
-          leading: AspectRatio(
-            aspectRatio: 1/1,
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: PlistoDynamic.alt(index),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-              alignment: Alignment.center,
-              child: Text(PlistoCore.getRank(index).toString(), style: TextStyle(fontSize: 17*MediaQuery.of(context).textScaleFactor,fontWeight: FontWeight.bold, color: PlistoDynamic.icon(index)),),
-            ),
-          ),
 
-          subtitle: Text(
-            'Tap to see detail',
-            style: TextStyle(fontSize: 15*MediaQuery.of(context).textScaleFactor, color: PlistoDynamic.subtitle()),
-          ),
-
-          trailing: Text(
-            PlistoCore.getPoint(index).toString(),
-            style: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.primary()),
-          ),
-          onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) {
-              return Detail(index: index,);
-            }));
-          },
-        ),
-      ),
-    );
-  }
   static IconData _medalIcon (int rank){
     if(rank == 1){
       return EvaIcons.star;
@@ -105,24 +61,25 @@ class PlistoBuilder{
           child: ListTile(
             title: Text(
               PlistoCore.getRank(index).toString() +' Runner Up',
-              style: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.title()),
+              style: TextStyle(fontSize: 15*MediaQuery.of(context).textScaleFactor,fontWeight: FontWeight.bold, color: PlistoDynamic.title()),
               // style: globals.titleText[globals.theme],
             ),
-            leading: Container(
-              height: 44,
-              width: 44,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: _rankThumbnailColor(index),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
+            leading: AspectRatio(
+              aspectRatio: 1/1,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: _rankThumbnailColor(index),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                ),
+                alignment: Alignment.center,
+                child: Icon(_medalIcon(PlistoCore.getRank(index)), color: _rankIconColor(index),),
+                // child: Text(globals.getRank(index).toString(), style: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getCardContentColor(index)),),
               ),
-              alignment: Alignment.center,
-              child: Icon(_medalIcon(PlistoCore.getRank(index)), color: _rankIconColor(index),),
-              // child: Text(globals.getRank(index).toString(), style: TextStyle(fontWeight: FontWeight.bold, color: globals.theme.getCardContentColor(index)),),
             ),
             subtitle: Text(
               _sub,
-              style: TextStyle(fontSize: 15*MediaQuery.of(context).textScaleFactor, fontWeight: FontWeight.bold, color: PlistoDynamic.subtitle()),
+              style: TextStyle(fontSize: 12*MediaQuery.of(context).textScaleFactor, fontWeight: FontWeight.bold, color: PlistoDynamic.subtitle()),
             ),
           ),
         ),
@@ -139,7 +96,7 @@ class PlistoBuilder{
           child: ListTile(
             title: Text(
               PlistoCore.getRank(index).toString() +' Runner Up',
-              style: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.title()),
+              style: TextStyle(fontSize: 15*MediaQuery.of(context).textScaleFactor,fontWeight: FontWeight.bold, color: PlistoDynamic.title()),
               // style: globals.titleText[globals.theme],
             ),
             leading: AspectRatio(
@@ -157,7 +114,7 @@ class PlistoBuilder{
             ),
             subtitle: Text(
               _sub,
-              style: TextStyle(fontSize: 15*MediaQuery.of(context).textScaleFactor, fontWeight: FontWeight.bold, color: PlistoDynamic.subtitle()),
+              style: TextStyle(fontSize: 12*MediaQuery.of(context).textScaleFactor, fontWeight: FontWeight.bold, color: PlistoDynamic.subtitle()),
             ),
           ),
         ),
@@ -176,7 +133,7 @@ class PlistoBuilder{
         child: ListTile(
           title: Text(
             'Next Person',
-            style: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.subtitle()),
+            style: TextStyle(fontSize: 15*MediaQuery.of(context).textScaleFactor,fontWeight: FontWeight.bold, color: PlistoDynamic.subtitle()),
           ),
           leading: AspectRatio(
             aspectRatio: 1/1,
@@ -192,17 +149,17 @@ class PlistoBuilder{
           ),
           subtitle: Text(
             PlistoCore.getName(index) + ' with ' + PlistoCore.getPoint(index).toString(),
-            style: TextStyle(fontWeight: FontWeight.bold, color: PlistoDynamic.primary()),
+            style: TextStyle(fontSize: 12*MediaQuery.of(context).textScaleFactor,fontWeight: FontWeight.bold, color: PlistoDynamic.primary()),
           ),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) {
-                  return Detail(index: index,);
-                },
-              ),
-            );
-          },
+          // onTap: () {
+          //   Navigator.of(context).pushReplacement(
+          //     MaterialPageRoute<void>(
+          //       builder: (BuildContext context) {
+          //         return Detail(index: index,);
+          //       },
+          //     ),
+          //   );
+          // },
         ),
       ),
     );

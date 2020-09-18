@@ -5,8 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:plisto/components/core/plisto_core.dart';
 import 'package:plisto/components/core/plisto_theme.dart';
 import 'package:plisto/components/core/plisto_builder.dart';
+import 'package:plisto/components/detail.dart';
 import 'add_name.dart';
-import 'detail_sheet.dart';
+import 'test_screen.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -15,7 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     double fontFactor = MediaQuery.of(context).textScaleFactor;
@@ -62,10 +62,7 @@ class _HomePageState extends State<HomePage> {
                   IconButton(
                     icon: Icon(Icons.control_point, color: PlistoDynamic.primary(),),
                     onPressed: (){
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => BottomSheetBuilder())
-                      );
+                      _navigatorAdd(context);
                     },
                   ),
                 ],
@@ -73,7 +70,7 @@ class _HomePageState extends State<HomePage> {
               SliverGrid(
                 delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
-                        return PlistoBuilder.tile(index, context);
+                        return _tile(index, context);
                       },
                   childCount: PlistoCore.getLength(),
                 ), gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -108,5 +105,81 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+  Widget _tile(int index, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+      child: Container(
+        // height: 100.0,
+        decoration: BoxDecoration(
+          color: PlistoDynamic.cardBackground(),
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+        ),
+        child: ListTile(
+          title: Text(
+            PlistoCore.getName(index),
+            style: TextStyle(fontSize: 15 * MediaQuery
+                .of(context)
+                .textScaleFactor,
+                fontWeight: FontWeight.bold,
+                color: PlistoDynamic.title()),
+          ),
+          leading: AspectRatio(
+            aspectRatio: 1 / 1,
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: PlistoDynamic.alt(index),
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+              ),
+              alignment: Alignment.center,
+              child: Text(PlistoCore.getRank(index).toString(),
+                style: TextStyle(fontSize: 20 * MediaQuery
+                    .of(context)
+                    .textScaleFactor,
+                    fontWeight: FontWeight.bold,
+                    color: PlistoDynamic.onList(index)),),
+            ),
+          ),
+
+          subtitle: Text(
+            'Tap to see detail',
+            style: TextStyle(fontSize: 12 * MediaQuery
+                .of(context)
+                .textScaleFactor, color: PlistoDynamic.subtitle()),
+          ),
+
+          trailing: Text(
+            PlistoCore.getPoint(index).toString(),
+            style: TextStyle(fontSize: 15 * MediaQuery
+                .of(context)
+                .textScaleFactor,
+                fontWeight: FontWeight.bold,
+                color: PlistoDynamic.primary()),
+          ),
+          onTap: () {
+            _navigatorEdit(context, index);
+          },
+          onLongPress: () {
+            // HomePage;
+          },
+        ),
+      ),
+    );
+  }
+  _navigatorAdd(BuildContext context) async {
+    final bool result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AddName())
+    );
+    if(result) setState(() {});
+
+  }
+  _navigatorEdit(BuildContext context, int index) async {
+    final bool refresh = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Detail(index: index,))
+    );
+    setState(() {});
   }
 }

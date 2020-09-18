@@ -19,7 +19,7 @@ class SpecialThemeAdd{
   }
   static Color getBackgroundColor(){
     if(PlistoDynamic.getBrightness()) return PlistoLightTheme.background;
-    else return PlistoDarkTheme.subtitle3;
+    else return PlistoDarkTheme.background;
 
   }
   static Color getHeadColor(){

@@ -48,22 +48,30 @@ class PlistoCore {
       return true;
     }else return false;
   }
-  static getPoint(int index) {
+  static int getPoint(int index) {
     return _data[index].point;
   }
-  static getName(int index) {
+  static String getName(int index) {
     return _data[index].name;
   }
-  static getRank(int index){
+  static int getRank(int index){
     return _data[index].rank;
   }
-  static getLength(){
+  static int getLength(){
     return _data.length;
   }
-  static getUpperRank(int index){
+  static int getUpperRank(int index){
     if(index != 0){
       return index-1;
     }else return 0;
+  }
+  static int findName(String name){
+    for(int i=0;i<_data.length;i++){
+      if(name==_data[i].name){
+        return i;
+      }
+    }
+    return null;
   }
   // Edit Personal Data
   static addNew(String name, int point) {
@@ -72,6 +80,7 @@ class PlistoCore {
   }
   static updatePoint(int index, int point) {
     _data[index].point = point;
+    ranking();
   }
   static updateName(int index, String name) {
     _data[index].name = name;
@@ -85,6 +94,7 @@ class PlistoCore {
       }
     }
     _data = temp;
+    ranking();
   }
   static brightnessIcon(){
     if(PlistoDynamic.getBrightness()){
