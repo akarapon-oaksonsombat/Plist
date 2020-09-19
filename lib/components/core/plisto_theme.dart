@@ -1,67 +1,106 @@
 library plisto_theme;
+
 import 'package:flutter/material.dart';
 
 class PlistoDynamic {
   static bool _isLight = true;
-  static bool getBrightness(){
+  static bool getBrightness() {
     return _isLight;
   }
-  static themeChange(){
-    if(_isLight) _isLight=false;
-    else _isLight=true;
+
+  static themeChange() {
+    if (_isLight)
+      _isLight = false;
+    else
+      _isLight = true;
   }
-  static Color primary(){
-    if(_isLight) return PlistoLightTheme.primary;
-    else return PlistoDarkTheme.primary;
+
+  static Color primary() {
+    if (_isLight)
+      return PlistoLightTheme.primary;
+    else
+      return PlistoDarkTheme.primary;
   }
-  static Color title(){
-    if(_isLight) return PlistoLightTheme.title;
-    else return PlistoDarkTheme.title;
+
+  static Color title() {
+    if (_isLight)
+      return PlistoLightTheme.title;
+    else
+      return PlistoDarkTheme.title;
   }
-  static Color subtitle(){
-    if(_isLight) return PlistoLightTheme.subtitle;
-    else return PlistoDarkTheme.subtitle;
+
+  static Color subtitle() {
+    if (_isLight)
+      return PlistoLightTheme.subtitle;
+    else
+      return PlistoDarkTheme.subtitle;
   }
-  static Color subtitle2(){
-    if(_isLight) return PlistoLightTheme.subtitle2;
-    else return PlistoDarkTheme.subtitle2;
+
+  static Color subtitle2() {
+    if (_isLight)
+      return PlistoLightTheme.subtitle2;
+    else
+      return PlistoDarkTheme.subtitle2;
   }
-  static Color subtitle3(){
-    if(_isLight) return PlistoLightTheme.subtitle3;
-    else return PlistoDarkTheme.subtitle3;
+
+  static Color subtitle3() {
+    if (_isLight)
+      return PlistoLightTheme.subtitle3;
+    else
+      return PlistoDarkTheme.subtitle3;
   }
-  static Color cardBackground(){
-    if(_isLight) return PlistoLightTheme.cardBackground;
-    else return PlistoDarkTheme.cardBackground;
+
+  static Color cardBackground() {
+    if (_isLight)
+      return PlistoLightTheme.cardBackground;
+    else
+      return PlistoDarkTheme.cardBackground;
   }
-  static Color background(){
-    if(_isLight) return PlistoLightTheme.background;
-    else return PlistoDarkTheme.background;
+
+  static Color background() {
+    if (_isLight)
+      return PlistoLightTheme.background;
+    else
+      return PlistoDarkTheme.background;
   }
-  static int _choose(int index){
-    return index%9;
+
+  static int _choose(int index) {
+    return (index - 1) % 9;
   }
-  static Color color(int index){
+
+  static Color color(int index) {
     index = _choose(index);
-    if(_isLight) return PlistoLightTheme.color[index];
-    else return PlistoDarkTheme.color[index];
+    if (_isLight)
+      return PlistoLightTheme.color[index];
+    else
+      return PlistoDarkTheme.color[index];
   }
-  static Color alt(int index){
+
+  static Color alt(int index) {
     index = _choose(index);
-    if(_isLight) return PlistoLightTheme.alt[index];
-    else return PlistoDarkTheme.alt[index];
+    if (_isLight)
+      return PlistoLightTheme.alt[index];
+    else
+      return PlistoDarkTheme.alt[index];
   }
-  static Color icon(int index){
+
+  static Color icon(int index) {
     index = _choose(index);
-    if(_isLight) return PlistoLightTheme.icon[index];
-    else return PlistoDarkTheme.background;
+    if (_isLight)
+      return PlistoLightTheme.icon[index];
+    else
+      return PlistoDarkTheme.background;
   }
-  static Color onList(int index){
+
+  static Color onList(int index) {
     index = _choose(index);
-    if(_isLight) return PlistoLightTheme.icon[index];
-    else return PlistoDarkTheme.background;
+    if (_isLight)
+      return PlistoLightTheme.icon[index];
+    else
+      return PlistoDarkTheme.background;
   }
 }
+
 class PlistoDarkTheme {
   static const Color primary = Color.fromRGBO(231, 231, 231, 1.0);
   static const Color title = Color.fromRGBO(231, 231, 231, 1.0);
@@ -94,6 +133,7 @@ class PlistoDarkTheme {
     Color.fromRGBO(255, 214, 10, 1),
   ];
 }
+
 class PlistoLightTheme {
   static const Color primary = Color.fromRGBO(0, 0, 0, 1.0);
   static const Color title = Color.fromRGBO(0, 0, 0, 1.0);

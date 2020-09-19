@@ -1,5 +1,6 @@
 library example_data;
-class ExampleData{
+
+class ExampleData {
   static const List<int> point = [
     90,
     85,

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'components/add_name.dart';
-import 'components/add_point.dart';
-import 'components/home.dart';
+import 'package:plisto/components/home.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,13 +10,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      // home: HomePage(),
       initialRoute: '/',
       routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => HomePage(),
-
-
       },
     );
   }

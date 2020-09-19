@@ -26,6 +26,7 @@ dependencies:
   animations: ^1.1.2
   google_fonts: ^1.1.0
   eva_icons_flutter:
+  reorderables:
 
 
   # The following adds the Cupertino Icons font to your application.
