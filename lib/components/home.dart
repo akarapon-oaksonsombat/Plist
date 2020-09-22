@@ -114,48 +114,88 @@ class _HomePageState extends State<HomePage> {
           color: PlistoDynamic.cardBackground(),
           borderRadius: BorderRadius.all(Radius.circular(5)),
         ),
-        child: ListTile(
-          title: Text(
-            PlistoCore.getName(index),
-            style: TextStyle(
-                fontSize: 15 * MediaQuery.of(context).textScaleFactor,
-                fontWeight: FontWeight.bold,
-                color: PlistoDynamic.title()),
-          ),
-          leading: AspectRatio(
-            aspectRatio: 1 / 1,
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: PlistoDynamic.alt(PlistoCore.getRank(index)),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                PlistoCore.getRank(index).toString(),
-                style: TextStyle(
-                    fontSize: 20 * MediaQuery.of(context).textScaleFactor,
-                    fontWeight: FontWeight.bold,
-                    color: PlistoDynamic.onList(PlistoCore.getRank(index))),
-              ),
+        child: Dismissible(
+          direction: DismissDirection.horizontal,
+          background: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: Colors.red,
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+            ),
+            child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Positioned(left: 16, child: Icon(EvaIcons.trash2, color: Colors.white,)),
+                  Positioned(right: 16, child: Icon(EvaIcons.trash2, color: Colors.white,)),
+                ]
             ),
           ),
-          subtitle: Text(
-            'Tap to see detail',
-            style: TextStyle(
-                fontSize: 12 * MediaQuery.of(context).textScaleFactor,
-                color: PlistoDynamic.subtitle()),
-          ),
-          trailing: Text(
-            PlistoCore.getPoint(index).toString(),
-            style: TextStyle(
-                fontSize: 15 * MediaQuery.of(context).textScaleFactor,
-                fontWeight: FontWeight.bold,
-                color: PlistoDynamic.primary()),
-          ),
-          onTap: () {
-            _navigatorDetail(context, index);
+          // Each Dismissible must contain a Key. Keys allow Flutter to
+          // uniquely identify widgets.
+          key: Key(PlistoCore.getName(index)),
+          // Provide a function that tells the app
+          // what to do after an item has been swiped away.
+          onDismissed: (direction) {
+            // Remove the item from the data source.
+            setState(() {
+              // Show a snackbar. This snackbar could also contain "Undo" actions.
+              Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("${PlistoCore.getName(index)} was delete"),
+                    // action: SnackBarAction(
+                    //   label: 'Undo',
+                    //   onPressed: () {
+                    //     // Some code to undo the change.
+                    //   },
+                    // ),
+                  )
+              );
+              PlistoCore.delete(index);
+            });
           },
+          child: ListTile(
+            title: Text(
+              PlistoCore.getName(index),
+              style: TextStyle(
+                  fontSize: 15 * MediaQuery.of(context).textScaleFactor,
+                  fontWeight: FontWeight.bold,
+                  color: PlistoDynamic.title()),
+            ),
+            leading: AspectRatio(
+              aspectRatio: 1 / 1,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: PlistoDynamic.alt(PlistoCore.getRank(index)),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  PlistoCore.getRank(index).toString(),
+                  style: TextStyle(
+                      fontSize: 20 * MediaQuery.of(context).textScaleFactor,
+                      fontWeight: FontWeight.bold,
+                      color: PlistoDynamic.onList(PlistoCore.getRank(index))),
+                ),
+              ),
+            ),
+            subtitle: Text(
+              'Tap to see detail',
+              style: TextStyle(
+                  fontSize: 12 * MediaQuery.of(context).textScaleFactor,
+                  color: PlistoDynamic.subtitle()),
+            ),
+            trailing: Text(
+              PlistoCore.getPoint(index).toString(),
+              style: TextStyle(
+                  fontSize: 15 * MediaQuery.of(context).textScaleFactor,
+                  fontWeight: FontWeight.bold,
+                  color: PlistoDynamic.primary()),
+            ),
+            onTap: () {
+              _navigatorDetail(context, index);
+            },
+          ),
         ),
       ),
     );

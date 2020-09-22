@@ -6,13 +6,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Plist',
+      title: 'Plisto',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),
+        // '/detail': (context) => Detail(),
       },
     );
   }
