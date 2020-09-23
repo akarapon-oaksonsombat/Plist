@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                     height: 10.0,
                     child: Center(
                       child: Text(
-                        'Plisto 1.0 Beta 6',
+                        'Plisto 1.1.1',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: fontFactor * 12.0,
